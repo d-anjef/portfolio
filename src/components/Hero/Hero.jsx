@@ -135,8 +135,7 @@ export default function Hero({ onOpenProjects, onOpenVideos }) {
           {(activeView === 'split' || activeView === 'designer') && (
             <div className="subtitle-list designer-subtitles">
               <p className="subtitle">UI / UX Designer</p>
-              <p className="subtitle">Photographer</p>
-              <p className="subtitle">Video Editor</p>
+              <p className="subtitle">Photographer | Video </p>
             </div>
           )}
           

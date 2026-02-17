@@ -453,7 +453,7 @@
     width: 75% !important;
     max-width: 360px !important;
     height: 38vh !important; /* Further reduced */
-    bottom: 12% !important; /* Much lower - was 8% */
+    bottom: 8% !important; /* Much lower - was 8% */
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
@@ -467,7 +467,7 @@
   /* TITLES - Centered at top of each section */
   .developer-title {
     top: 15% !important;
-    left: 50% !important;
+    left: 25% !important;
     transform: translateX(-50%);
     text-align: center;
     font-size: 2.2rem !important;
@@ -475,7 +475,7 @@
   
   .designer-title {
     top: 1% !important; /* Just below the 50% dividing line */
-    left: 50% !important;
+    left: 25% !important;
     right: auto !important;
     transform: translateX(-50%);
     text-align: center;
@@ -495,18 +495,19 @@
   /* SUBTITLES - Centered below titles */
   .developer-subtitles {
     top: 20% !important;
-    left: 50% !important;
+    left: 25% !important;
     transform: translateX(-50%);
     text-align: center;
   }
   
   .developer-subtitles .subtitle {
+    
     text-align: center !important;
   }
   
   .designer-subtitles {
     top: 4% !important; /* Right below title */
-    left: 50% !important;
+    left: 35% !important;
     right: auto !important;
     transform: translateX(-50%);
     text-align: center;
@@ -521,12 +522,13 @@
   }
   
   .view-designer .designer-subtitles {
-    top: 15% !important;
+    top: 10% !important;
+    
   }
   
   /* PROJECTS BUTTONS - Centered */
   .developer-projects-split {
-    top: 40% !important;
+    top: 35% !important;
     left: 50% !important;
     transform: translateX(-50%);
   }
@@ -564,7 +566,7 @@
   
   /* Show icons only in expanded views */
   .icon-item { 
-    width: 42px !important; 
+    width: 44px !important; 
     height: 42px !important; 
   }
   
@@ -598,7 +600,7 @@
     width: 90% !important;
     max-width: 350px !important;
     height: 45vh !important;
-    bottom: 11% !important;
+    bottom: 8% !important;
   }
   
   .main-title {
@@ -610,11 +612,12 @@
   }
   
   .icon-item {
-    width: 38px !important;
-    height: 38px !important;
+    width: 30px !important;
+    height: 30px !important;
   }
   
   .projects-btn {
+    left: 90px !important;
     padding: 7px 22px;
     font-size: 0.8rem;
   }
@@ -641,3 +644,4 @@
 .designer-icon-1 { animation: float 3.2s ease-in-out infinite; }
 .designer-icon-2 { animation: float 3.7s ease-in-out infinite; }
 .designer-icon-3 { animation: float 4.2s ease-in-out infinite; }
+

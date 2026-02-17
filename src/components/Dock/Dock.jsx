@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { Children, cloneElement, useEffect, useMemo, useRef } from 'react';
+import { Children, cloneElement, useMemo, useRef } from 'react';
 
 import Profile from '../Profile/Profile';
 import ProjectsWindow from '../Projects/ProjectsWindow';
@@ -15,7 +15,7 @@ import './Dock.css';
 
 // --- React Bits Sub-Components ---
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize }) {
+function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize, isMobile }) {
   const ref = useRef(null);
   const isHovered = useMotionValue(0);
 
@@ -24,19 +24,31 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
     return val - rect.x - baseItemSize / 2;
   });
 
-  const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+  // Disable magnification on mobile
+  const targetSize = useTransform(
+    mouseDistance,
+    [-distance, 0, distance],
+    [baseItemSize, isMobile ? baseItemSize : magnification, baseItemSize]
+  );
+
   const size = useSpring(targetSize, spring);
 
   return (
     <motion.div
       ref={ref}
       style={{ width: size, height: size }}
-      onHoverStart={() => isHovered.set(1)}
-      onHoverEnd={() => isHovered.set(0)}
-      onClick={onClick}
+      onHoverStart={() => !isMobile && isHovered.set(1)}
+      onHoverEnd={() => !isMobile && isHovered.set(0)}
+      onTap={() => {
+        onClick?.();
+        // Provide visual feedback on mobile
+        if (isMobile) isHovered.set(1);
+      }}
+      onClick={!isMobile ? onClick : undefined}
       className={`dock-item ${className}`}
       tabIndex={0}
       role="button"
+      aria-label="Dock item"
     >
       {Children.map(children, child => cloneElement(child, { isHovered }))}
     </motion.div>
@@ -56,7 +68,7 @@ function DockLabel({ children, className = '', ...rest }) {
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -45 }} /* Adjusted to pop UPWARDS */
+          animate={{ opacity: 1, y: -45 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
           className={`dock-label ${className}`}
@@ -76,6 +88,7 @@ function DockIcon({ children, className = '' }) {
 // --- Main Dock Component ---
 
 const Dock = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
@@ -85,15 +98,35 @@ const Dock = () => {
   const [isExperienceOpen, setIsExperienceOpen] = useState(false);
   const [isEducationOpen, setIsEducationOpen] = useState(false);
 
-  const spring = { mass: 0.1, stiffness: 150, damping: 12 };
+  // Detect mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Adjust spring physics for mobile
+  const spring = isMobile
+    ? { mass: 0.1, stiffness: 100, damping: 15 }
+    : { mass: 0.1, stiffness: 150, damping: 12 };
+
   const mouseX = useMotionValue(Infinity);
 
+  // Adjust magnification and sizing for mobile
+  const baseItemSize = isMobile ? 40 : 50;
+  const magnification = isMobile ? 40 : 80; // No magnification on mobile
+  const distance = isMobile ? 150 : 200;
+
   const items = [
-    { label: 'Home', icon: '🏠', onClick: () => window.scrollTo({top: 0, behavior: 'smooth'}) },
+    { label: 'Home', icon: '🏠', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
     { label: 'Profile', icon: '👤', onClick: () => setIsProfileOpen(true) },
     { label: 'Experience', icon: '💼', onClick: () => setIsExperienceOpen(true) },
     { label: 'Education', icon: '🎓', onClick: () => setIsEducationOpen(true) },
-    { label: 'Projects', icon: '📁', onClick: () => setIsProjectsOpen(true) },
+    { label: 'Projects', icon: '📂', onClick: () => setIsProjectsOpen(true) },
     { label: 'Skills', icon: '⚙️', onClick: () => setIsSkillsOpen(true) },
     { label: 'Videos', icon: '🎥', onClick: () => setIsVideosOpen(true) },
     { label: 'Hobbies', icon: '🎨', onClick: () => setIsHobbiesOpen(true) },
@@ -103,10 +136,10 @@ const Dock = () => {
   return (
     <>
       <div className="dock-container-bottom">
-        <motion.div 
+        <motion.div
           className="dock-outer"
-          onMouseMove={(e) => mouseX.set(e.pageX)}
-          onMouseLeave={() => mouseX.set(Infinity)}
+          onMouseMove={(e) => !isMobile && mouseX.set(e.pageX)}
+          onMouseLeave={() => !isMobile && mouseX.set(Infinity)}
         >
           <div className="dock-panel" role="toolbar">
             {items.map((item, index) => (
@@ -115,9 +148,10 @@ const Dock = () => {
                 onClick={item.onClick}
                 mouseX={mouseX}
                 spring={spring}
-                distance={200}
-                magnification={80}
-                baseItemSize={50}
+                distance={distance}
+                magnification={magnification}
+                baseItemSize={baseItemSize}
+                isMobile={isMobile}
               >
                 <DockIcon>{item.icon}</DockIcon>
                 <DockLabel>{item.label}</DockLabel>

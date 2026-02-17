@@ -1,15 +1,31 @@
+/* ScrollStack.css - Mobile Responsive Version */
+
 .scroll-stack-scroller {
   position: relative;
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  overflow-x: visible;
+  overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   will-change: scroll-position;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Hide scrollbar on mobile for cleaner look */
+@media (max-width: 768px) {
+  .scroll-stack-scroller {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scroll-stack-scroller::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .scroll-stack-inner {
@@ -33,7 +49,6 @@
   padding: 3rem;
   border-radius: 40px;
   box-sizing: border-box;
-  /* Improve mobile performance */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   position: relative;
@@ -42,4 +57,140 @@
 .scroll-stack-end {
   width: 100%;
   height: 1px;
+}
+
+/* ===== TABLET (768px - 1024px) ===== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .scroll-stack-inner {
+    padding: 15vh 3rem 40rem;
+  }
+
+  .scroll-stack-card {
+    height: 18rem;
+    margin: 25px 0;
+    padding: 2.5rem;
+    border-radius: 32px;
+  }
+}
+
+/* ===== MOBILE (max-width: 768px) ===== */
+@media (max-width: 768px) {
+  .scroll-stack-scroller {
+    overflow-x: hidden;
+  }
+
+  .scroll-stack-inner {
+    padding: 12vh 1.5rem 35rem;
+  }
+
+  .scroll-stack-card {
+    height: auto;
+    min-height: 14rem;
+    margin: 20px 0;
+    padding: 2rem;
+    border-radius: 24px;
+  }
+}
+
+/* ===== SMALL MOBILE (max-width: 480px) ===== */
+@media (max-width: 480px) {
+  .scroll-stack-inner {
+    padding: 10vh 1rem 25rem;
+  }
+
+  .scroll-stack-card {
+    height: auto;
+    min-height: 12rem;
+    margin: 16px 0;
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+}
+
+/* ===== EXTRA SMALL MOBILE (max-width: 360px) ===== */
+@media (max-width: 360px) {
+  .scroll-stack-inner {
+    padding: 8vh 0.75rem 20rem;
+  }
+
+  .scroll-stack-card {
+    height: auto;
+    min-height: 10rem;
+    margin: 12px 0;
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+  .scroll-stack-scroller {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto; /* Faster on mobile */
+  }
+
+  .scroll-stack-card {
+    /* Reduce transform animations on touch devices */
+    will-change: auto;
+    transition: transform 0.3s ease-out;
+  }
+
+  /* Provide visual feedback on touch */
+  .scroll-stack-card:active {
+    opacity: 0.95;
+  }
+}
+
+/* ===== LANDSCAPE MODE (MOBILE) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .scroll-stack-inner {
+    padding: 8vh 1.5rem 20rem;
+  }
+
+  .scroll-stack-card {
+    height: auto;
+    min-height: 10rem;
+    margin: 12px 0;
+    padding: 1.5rem;
+  }
+}
+
+/* ===== REDUCE MOTION (ACCESSIBILITY) ===== */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-stack-scroller {
+    scroll-behavior: auto;
+  }
+
+  .scroll-stack-card {
+    will-change: auto;
+    transition: none;
+  }
+
+  /* Disable animations */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== DARK MODE SCROLLBAR ===== */
+@media (prefers-color-scheme: dark) {
+  .scroll-stack-scroller {
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ===== LIGHT MODE SCROLLBAR ===== */
+@media (prefers-color-scheme: light) {
+  .scroll-stack-scroller {
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* ===== HIGH DPI DISPLAY OPTIMIZATION ===== */
+@media (min-resolution: 2dppx) {
+  .scroll-stack-card {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  }
 }
