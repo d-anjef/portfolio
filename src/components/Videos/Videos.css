@@ -1,30 +1,43 @@
-/* Videos.css - Senior Developer Refactor */
+/* Videos.css - Enhanced Modal Styling */
 
 /* 1. Modal Overlay */
 .videos-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85); /* Slightly darker for focus */
-  backdrop-filter: blur(12px); /* Matches your original aesthetic */
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 2000;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* 2. Modal Window Container */
 .videos-modal-window {
-  background: #0d0d0d; /* Deep dark background to contrast Chroma Grid */
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
   width: 85vw;
   height: 80vh;
   border-radius: 20px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  border: 1px solid #333;
+  border: 1px solid rgba(0, 255, 255, 0.2);
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.15), 0 0 80px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* 3. Header Section */
@@ -32,61 +45,98 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
 }
 
 .videos-title {
   color: #0ff;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);
 }
 
 .glitch-text {
-  text-shadow: 0 0 4px #0ff, 0 0 12px #0ff;
+  display: inline-block;
+  position: relative;
+  animation: titleGlow 2s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(0, 255, 255, 1), 0 0 30px rgba(0, 255, 255, 0.6);
+  }
 }
 
 .window-controls {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .window-btn {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.red { background: #ff5f57; }
-.yellow { background: #ffbd2e; }
-.green { background: #28c840; }
+.window-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.red { 
+  background: linear-gradient(135deg, #ff5f57, #ff4444);
+}
+
+.yellow { 
+  background: linear-gradient(135deg, #ffbd2e, #ffaa00);
+}
+
+.green { 
+  background: linear-gradient(135deg, #28c840, #1fb830);
+}
 
 .videos-description {
-  color: #ccc;
+  color: #aaa;
   margin: 0 0 1.5rem 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
 /* 4. Scrollable Grid Area */
-/* This replaces the old .video-carousel-3cards logic */
 .grid-scroll-area {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 10px; /* Space for scrollbar */
+  padding-right: 12px;
   scrollbar-width: thin;
-  scrollbar-color: #333 transparent;
+  scrollbar-color: rgba(0, 255, 255, 0.3) transparent;
+  scroll-behavior: smooth;
 }
 
 /* Chrome/Safari Scrollbar Styles */
 .grid-scroll-area::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .grid-scroll-area::-webkit-scrollbar-thumb {
-  background: #333;
+  background: linear-gradient(to bottom, rgba(0, 255, 255, 0.4), rgba(0, 255, 255, 0.2));
   border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.grid-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, rgba(0, 255, 255, 0.6), rgba(0, 255, 255, 0.4));
 }
 
 .grid-scroll-area::-webkit-scrollbar-track {
@@ -99,34 +149,96 @@
 @media (max-width: 1024px) {
   .videos-modal-window {
     width: 95vw;
+    height: 85vh;
     padding: 1.5rem;
+  }
+
+  .videos-title {
+    font-size: 1.5rem;
   }
 }
 
 /* Mobile Devices */
 @media (max-width: 768px) {
   .videos-modal-window {
+    width: 98vw;
     height: 95vh;
     padding: 1rem;
     border-radius: 15px;
   }
 
+  .videos-modal-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+  }
+
   .videos-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
   }
 
   .videos-description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .window-btn {
+    width: 14px;
+    height: 14px;
   }
 }
 
 /* Extra Small Devices */
 @media (max-width: 480px) {
   .videos-modal-window {
+    width: 100vw;
+    height: 100vh;
     padding: 0.8rem;
+    border-radius: 10px;
+    border: none;
   }
-  
+
   .videos-modal-header {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .videos-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+  }
+
+  .videos-description {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .window-controls {
+    gap: 8px;
+  }
+
+  .window-btn {
+    width: 12px;
+    height: 12px;
+  }
+
+  .grid-scroll-area {
+    padding-right: 8px;
+  }
+}
+
+/* Extra Large Screens */
+@media (min-width: 1920px) {
+  .videos-modal-window {
+    width: 80vw;
+    padding: 2.5rem;
+  }
+
+  .videos-title {
+    font-size: 2rem;
+  }
+
+  .videos-description {
+    font-size: 1.1rem;
   }
 }

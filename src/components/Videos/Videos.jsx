@@ -3,55 +3,82 @@ import { motion } from "framer-motion";
 import ChromaGrid from "./ChromaGrid";
 import "./Videos.css";
 
-const videoData = [
-  {
-    title: "Masthya Narayan Recreation Center",
-    subtitle: "Ad Project | 4K UHD",
-    handle: "0:46 Sec",
-    image: "/assets/photos/MNRC.png",
-    url: "https://www.facebook.com/share/v/1AhTYNQswD/",
-    borderColor: "#0ff",
-    gradient: "linear-gradient(145deg, #00ffff22, #000)"
-  },
-  {
-    title: "Nhega Jatra",
-    subtitle: "Personal Project | 1080 HD",
-    handle: "1:02 Min",
-    image: "/assets/photos/JTR.png",
-    url: "https://www.facebook.com/share/v/1K1qAMQyLY/",
-    borderColor: "#0ff",
-    gradient: "linear-gradient(145deg, #00ffff22, #000)"
-  },
-  {
-    title: "SwastiShree Gurukul",
-    subtitle: "Commercial | 1080 HD",
-    handle: "0:34 Sec",
-    image: "/assets/photos/SS.png",
-    url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7254529750226504961",
-    borderColor: "#0ff",
-    gradient: "linear-gradient(145deg, #00ffff22, #000)"
-  },
-  {
-    title: "Machchhegaun Mela",
-    subtitle: "Personal | 1080 HD",
-    handle: "0:30 Sec",
-    image: "/assets/photos/mela.png",
-    url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7259313392286960914",
-    borderColor: "#0ff",
-    gradient: "linear-gradient(145deg, #00ffff22, #000)"
-  },
-  {
-    title: "Anil Gurung’s Project",
-    subtitle: "Personal | 1080 HD",
-    handle: "0:45 Sec",
-    image: "/assets/photos/AG.png",
-    url: "https://www.instagram.com/reel/C1wr59Ht2Yh/",
-    borderColor: "#0ff",
-    gradient: "linear-gradient(145deg, #00ffff22, #000)"
-  }
-];
-
 const Videos = ({ onClose }) => {
+  const videoData = [
+    {
+      title: "Masthya Narayan Recreation Center",
+      subtitle: "Ad Project | 4K UHD",
+      handle: "0:46 Sec",
+      image: "/assets/photos/MNRC.png",
+      url: "https://www.facebook.com/share/v/1AhTYNQswD/",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "Nhega Jatra",
+      subtitle: "Personal Project | 1080 HD",
+      handle: "1:02 Min",
+      image: "/assets/photos/JTR.png",
+      url: "https://www.facebook.com/share/v/1K1qAMQyLY/",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "SwastiShree Gurukul",
+      subtitle: "Commercial | 1080 HD",
+      handle: "0:34 Sec",
+      image: "/assets/photos/SS.png",
+      url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7254529750226504961",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "Machchhegaun Mela",
+      subtitle: "Personal | 1080 HD",
+      handle: "0:30 Sec",
+      image: "/assets/photos/mela.png",
+      url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7259313392286960914",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "Anil Gurung's Project",
+      subtitle: "Personal | 1080 HD",
+      handle: "0:45 Sec",
+      image: "/assets/photos/AG.png",
+      url: "https://www.instagram.com/reel/C1wr59Ht2Yh/",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "City Care Clinic With Manual Therapy",
+      subtitle: "Dental promotional Video",
+      handle: "0:43 Sec",
+      image: "/assets/photos/dental.png",
+      url: "https://www.facebook.com/share/v/18KYUNaRCe/",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "City Care Clinic With Manual Therapy",
+      subtitle: "Dr. Sani Sipai",
+      handle: "0:33 Sec",
+      image: "/assets/photos/sani.png",
+      url: "https://www.facebook.com/share/v/17hKFMTdY9/",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    },
+    {
+      title: "City Care Clinic With Manual Therapy",
+      subtitle: "Dr. Niranjan Shah's Interview",
+      handle: "0:56 Sec",
+      image: "/assets/photos/niranjan.png",
+      url: "https://www.facebook.com/share/v/17oaBsyWos/",
+      borderColor: "#0ff",
+      gradient: "linear-gradient(145deg, #00ffff22, #000)"
+    }
+  ];
+
   return (
     <div className="videos-modal-overlay">
       <motion.div
@@ -65,7 +92,7 @@ const Videos = ({ onClose }) => {
           <div className="window-controls">
             <button className="window-btn yellow" />
             <button className="window-btn green" />
-             <button className="window-btn red" onClick={onClose} />
+            <button className="window-btn red" onClick={onClose} />
           </div>
         </div>
 

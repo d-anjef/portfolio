@@ -106,8 +106,8 @@ export default function Hero({ onOpenProjects, onOpenVideos }) {
           {/* Show subtitles in both split and expanded view */}
           {(activeView === 'split' || activeView === 'developer') && (
             <div className="subtitle-list developer-subtitles">
+              <p className="subtitle">Full Stack Developer</p>
               <p className="subtitle">FrontEnd Developer</p>
-              <p className="subtitle">Ui/UX Developer</p>
             </div>
           )}
           
@@ -129,11 +129,12 @@ export default function Hero({ onOpenProjects, onOpenVideos }) {
           className={`side designer-side ${activeView === 'designer' ? 'active' : ''} ${activeView === 'developer' ? 'hidden' : ''}`}
           onClick={() => handleClick('designer')}
         >
-          <h1 className="main-title designer-title">Designer</h1>
+          <h1 className="main-title designer-title">Creatives</h1>
           
           {/* Show subtitles in both split and expanded view */}
           {(activeView === 'split' || activeView === 'designer') && (
             <div className="subtitle-list designer-subtitles">
+              <p className="subtitle">UI / UX Designer</p>
               <p className="subtitle">Photographer</p>
               <p className="subtitle">Video Editor</p>
             </div>

@@ -26,34 +26,40 @@
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes popIn {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { opacity: 0.4; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes particleFloat {
   0% {
-    transform: scale(0.95);
-    opacity: 0;
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
   }
   100% {
-    transform: scale(1);
-    opacity: 1;
+    transform: translate(var(--tx, 50px), var(--ty, -50px)) scale(0);
+    opacity: 0;
   }
 }
 
-@keyframes slideInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
 .hobbies-header {
@@ -65,6 +71,8 @@
   border-bottom: 1px solid #333;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  z-index: 100;
+  flex-shrink: 0;
 }
 
 .hobbies-title {
@@ -101,17 +109,9 @@
   outline-offset: 2px;
 }
 
-.yellow {
-  background-color: #ffbd2e;
-}
-
-.green {
-  background-color: #27c93f;
-}
-
-.red {
-  background-color: #ff5f56;
-}
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+.red { background-color: #ff5f56; }
 
 .hobbies-description {
   padding: 16px 24px;
@@ -120,189 +120,510 @@
   line-height: 1.6;
   background-color: #252525;
   border-bottom: 1px solid #333;
+  z-index: 50;
+  flex-shrink: 0;
 }
 
-.hobbies-content {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  overflow-y: auto;
-  scrollbar-width: thin;
+/* Category Filter */
+.hobbies-filter {
+  display: flex;
+  gap: 10px;
+  padding: 12px 24px;
+  background: linear-gradient(to bottom, #252525, #1f1f1f);
+  border-bottom: 1px solid #333;
+  overflow-x: auto;
+  z-index: 40;
+  flex-shrink: 0;
 }
 
-.hobbies-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.hobbies-content::-webkit-scrollbar-thumb {
-  background-color: #555;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.hobbies-content::-webkit-scrollbar-thumb:hover {
-  background-color: #777;
-}
-
-.hobbies-content::-webkit-scrollbar-track {
+.filter-btn {
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
   background: transparent;
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #6c5ce7, #5a4ecf);
+  border-color: #6c5ce7;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(108, 92, 231, 0.5);
+}
+
+/* ScrollStack Container */
+.hobbies-scroll-stack {
+  flex: 1;
+  position: relative;
+}
+
+.hobbies-scroll-stack.scroll-stack-scroller {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: visible;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: scroll-position;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hobbies-scroll-stack.scroll-stack-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.hobbies-scroll-stack .scroll-stack-inner {
+  padding: 2rem 5rem 50rem 5rem;
+  min-height: 100vh;
 }
 
 /* Hobby Card */
 .hobby-card {
+  transform-origin: top center;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  position: relative;
+  margin: 0;
+}
+
+.hobby-card-wrapper {
   position: relative;
   background: linear-gradient(135deg, #2b2b2b 0%, #242424 100%);
-  border: 1px solid #3a3a4a;
-  border-radius: 12px;
-  padding: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  box-sizing: border-box;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: hidden;
-  animation: slideInUp 0.6s ease-out both;
-  animation-delay: var(--delay);
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-.hobby-card::before {
+/* Particle Effects */
+.particle-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--hobby-color);
+  opacity: 0;
+}
+
+.hobby-card-wrapper:hover .particle {
+  animation: particleFloat 0.6s ease-out forwards;
+}
+
+.particle:nth-child(1) { left: 20%; top: 20%; --tx: 100px; --ty: -80px; animation-delay: 0s; }
+.particle:nth-child(2) { left: 80%; top: 30%; --tx: -80px; --ty: -100px; animation-delay: 0.05s; }
+.particle:nth-child(3) { left: 50%; top: 60%; --tx: 120px; --ty: 60px; animation-delay: 0.1s; }
+.particle:nth-child(4) { left: 30%; top: 80%; --tx: -60px; --ty: 80px; animation-delay: 0.15s; }
+.particle:nth-child(5) { left: 70%; top: 50%; --tx: 90px; --ty: -50px; animation-delay: 0.2s; }
+
+/* Gradient Overlay */
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.hobby-card-wrapper:hover .gradient-overlay {
+  opacity: 1;
+}
+
+/* Hover States */
+.hobby-card-wrapper:hover {
+  border-color: var(--hobby-color);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(255, 255, 255, 0.1),
+    0 0 20px var(--hobby-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(43, 43, 43, 0.95) 0%, rgba(36, 36, 36, 0.95) 100%);
+  transform: translateY(-4px);
+}
+
+/* Shimmer Effect */
+.hobby-card-wrapper::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, var(--hobby-color), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   opacity: 0;
   transition: left 0.6s ease, opacity 0.4s ease;
   pointer-events: none;
+  z-index: 2;
 }
 
-.hobby-card:hover::before {
+.hobby-card-wrapper:hover::before {
   left: 100%;
   opacity: 0.15;
 }
 
-.hobby-card:hover,
-.hobby-card.active {
-  background: linear-gradient(135deg, rgba(107, 114, 128, 0.2) 0%, rgba(55, 65, 81, 0.2) 100%);
-  border-color: var(--hobby-color);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px var(--hobby-color);
-  transform: translateY(-6px);
+/* Animated Border Glow */
+.hobby-card-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--hobby-color), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
+.hobby-card-wrapper:hover::after {
+  opacity: 0.5;
+}
+
+/* Pulse Ring */
+.pulse-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hobby-card-wrapper:hover .pulse-ring {
+  animation: pulse 0.8s ease-out;
+}
+
+/* Card Content */
 .hobby-card-inner {
   position: relative;
   z-index: 1;
   display: flex;
+  gap: 24px;
+  width: 100%;
+  flex: 1;
+  align-items: flex-start;
+}
+
+/* Icon Container with Background */
+.hobby-icon-container {
+  position: relative;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  display: flex;
   align-items: center;
-  gap: 12px;
-  text-align: left;
+  justify-content: center;
+}
+
+.hobby-icon-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--hobby-color) + '20', var(--hobby-color) + '05');
+  border: 1px solid var(--hobby-color) + '40';
+  border-radius: 16px;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.hobby-card-wrapper:hover .hobby-icon-bg {
+  opacity: 1;
+  box-shadow: 0 0 20px var(--hobby-color) + '40';
 }
 
 .hobby-icon {
-  font-size: 2rem;
-  flex-shrink: 0;
-  transition: all 0.4s ease;
-  animation: bounce 0.6s ease-out;
+  position: relative;
+  z-index: 1;
+  font-size: 3.5rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  animation: float 3s ease-in-out infinite;
 }
 
-@keyframes bounce {
-  0% {
-    transform: scale(0.6) rotate(-10deg);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
+.hobby-card-wrapper:hover .hobby-icon {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 8px 20px var(--hobby-color));
+  animation: none;
 }
 
-.hobby-card:hover .hobby-icon,
-.hobby-card.active .hobby-icon {
-  transform: scale(1.2) rotate(5deg);
-  filter: drop-shadow(0 0 10px var(--hobby-color));
-}
-
+/* Info Section */
 .hobby-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hobby-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .hobby-title {
-  margin: 0 0 4px 0;
-  font-size: 1rem;
+  margin: 0;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
-  letter-spacing: -0.2px;
   transition: color 0.3s ease;
 }
 
-.hobby-card:hover .hobby-title,
-.hobby-card.active .hobby-title {
+.hobby-card-wrapper:hover .hobby-title {
+  color: var(--hobby-color);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.hobby-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.hobby-card-wrapper:hover .hobby-subtitle {
+  color: #999;
+}
+
+.category-badge {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(108, 92, 231, 0.1));
+  border: 1px solid rgba(108, 92, 231, 0.4);
+  border-radius: 12px;
+  color: #a78bfa;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.hobby-card-wrapper:hover .category-badge {
+  background: linear-gradient(135deg, var(--hobby-color) + '30', var(--hobby-color) + '15');
+  border-color: var(--hobby-color) + '60';
   color: var(--hobby-color);
 }
 
 .hobby-text {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: #aaa;
-  line-height: 1.4;
+  line-height: 1.6;
   transition: color 0.3s ease;
 }
 
-.hobby-card:hover .hobby-text,
-.hobby-card.active .hobby-text {
+.hobby-card-wrapper:hover .hobby-text {
   color: #bbb;
 }
 
-.hobby-arrow {
-  font-size: 1.2rem;
+/* Meta Information */
+.hobby-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.proficiency-badge {
+  padding: 4px 12px;
+  border: 1px solid;
+  border-radius: 12px;
   color: var(--hobby-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--hobby-color) + '10';
+  transition: all 0.3s ease;
+}
+
+.hobby-card-wrapper:hover .proficiency-badge {
+  background: var(--hobby-color) + '20';
+  box-shadow: 0 0 8px var(--hobby-color) + '40';
+}
+
+.experience-text {
+  color: #888;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Skills Section */
+.hobby-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-tag {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid;
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Detailed Info Section */
+.hobby-detailed-info {
+  padding: 12px;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 2px solid var(--hobby-color);
+  border-radius: 8px;
+  color: #bbb;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Expand Indicator */
+.expand-indicator {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: translateX(-8px);
-  flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
-.hobby-card:hover .hobby-arrow,
-.hobby-card.active .hobby-arrow {
+.expand-icon {
+  font-size: 1.5rem;
+  color: var(--hobby-color);
+  font-weight: bold;
+  display: block;
+}
+
+.hobby-card-wrapper:hover .expand-indicator {
   opacity: 1;
-  transform: translateX(0);
 }
 
+/* Accent Bar */
 .hobby-accent {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
-  height: 3px;
-  background: var(--hobby-color);
+  height: 4px;
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border-radius: 2px;
+  box-shadow: 0 0 12px var(--hobby-color);
 }
 
-.hobby-card:hover .hobby-accent,
-.hobby-card.active .hobby-accent {
+.hobby-card-wrapper:hover .hobby-accent {
   width: 100%;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* Expanded State */
+.hobby-card.expanded {
+  z-index: 10;
+}
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6c5ce7, #a78bfa);
+  width: 0;
+  transition: width 0.1s ease;
+  z-index: 30;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
   .hobbies-window {
     width: 90vw;
-    height: auto;
-    max-height: 90vh;
+    height: 85vh;
   }
 
-  .hobbies-content {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 14px;
-    padding: 16px;
+  .hobbies-scroll-stack .scroll-stack-inner {
+    padding: 1.5rem 3rem 40rem 3rem;
+  }
+
+  .hobby-card-wrapper {
+    padding: 2.5rem;
+    min-height: 240px;
+  }
+
+  .hobby-icon {
+    font-size: 3rem;
+  }
+
+  .hobby-title {
+    font-size: 1.2rem;
+  }
+
+  .hobby-text {
+    font-size: 0.9rem;
+  }
+
+  .hobby-card-inner {
+    gap: 20px;
+  }
+
+  .hobby-icon-container {
+    width: 70px;
+    height: 70px;
   }
 }
 
 @media (max-width: 768px) {
   .hobbies-window {
     width: 95vw;
-    height: 95vh;
+    height: 90vh;
   }
 
   .hobbies-title {
@@ -314,33 +635,56 @@
     font-size: 0.9rem;
   }
 
-  .hobbies-content {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    padding: 14px;
+  .hobbies-filter {
+    padding: 10px 16px;
   }
 
-  .hobby-card {
-    padding: 12px;
+  .hobbies-scroll-stack .scroll-stack-inner {
+    padding: 1.2rem 2rem 30rem 2rem;
+  }
+
+  .hobby-card-wrapper {
+    padding: 2rem;
+    min-height: 200px;
+    border-radius: 16px;
+  }
+
+  .hobby-card-inner {
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  .hobby-header-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .hobby-icon-container {
+    width: 60px;
+    height: 60px;
   }
 
   .hobby-icon {
-    font-size: 1.6rem;
+    font-size: 2.5rem;
   }
 
   .hobby-title {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 
   .hobby-text {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .expand-indicator {
+    right: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .hobbies-window {
     width: 95vw;
-    height: 90vh;
+    height: 95vh;
     border-radius: 8px;
   }
 
@@ -362,33 +706,77 @@
     font-size: 0.8rem;
   }
 
-  .hobbies-content {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 12px;
+  .hobbies-filter {
+    padding: 8px 12px;
+    gap: 8px;
   }
 
-  .hobby-card {
-    padding: 10px;
+  .filter-btn {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+  }
+
+  .hobbies-scroll-stack .scroll-stack-inner {
+    padding: 1rem 1rem 20rem 1rem;
+  }
+
+  .hobby-card-wrapper {
+    padding: 1.5rem;
+    min-height: 160px;
+    border-radius: 12px;
   }
 
   .hobby-card-inner {
-    gap: 10px;
+    gap: 12px;
+  }
+
+  .hobby-icon-container {
+    width: 50px;
+    height: 50px;
   }
 
   .hobby-icon {
-    font-size: 1.4rem;
+    font-size: 2rem;
   }
 
   .hobby-title {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 
   .hobby-text {
+    font-size: 0.75rem;
+  }
+
+  .hobby-meta {
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .proficiency-badge {
+    padding: 3px 10px;
     font-size: 0.7rem;
   }
 
-  .hobby-arrow {
-    font-size: 1rem;
+  .experience-text {
+    font-size: 0.7rem;
+  }
+
+  .skill-tag {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .hobby-detailed-info {
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+
+  .expand-indicator {
+    right: 12px;
+  }
+
+  .expand-icon {
+    font-size: 1.2rem;
   }
 }

@@ -11,7 +11,7 @@ const projectList = [
     icon: '🛒',
     github: 'https://github.com/d-anjef/nike-dunks-ecommerce', 
     live: 'https://nike-dunks-ecommerce.vercel.app/login', 
-    image: '', 
+    image: '/assets/projectpics/nike.png', 
     description: 'A premium footwear shopping experience with seamless cart management, user authentication, and modern UI design. Built with React for optimal performance.' 
   },
   { 
@@ -21,7 +21,7 @@ const projectList = [
     icon: '🏔️',
     github: 'https://github.com/d-anjef/Travel_Tourism_Web_app', 
     live: 'https://travel-tourism-one.vercel.app/', 
-    image: '', 
+    image: '/assets/projectpics/explore.png', 
     description: 'An interactive travel and tourism platform showcasing Nepal\'s beauty. Features destination guides, booking capabilities, and immersive visual experiences.' 
   },
   { 
@@ -30,7 +30,7 @@ const projectList = [
     color: '#0078D4', 
     icon: '💻',
     github: 'https://github.com/d-anjef/portfolio', 
-    live: 'https://anjef.com.np', 
+    live: 'https://www.anjef.com.np/', 
     image: '', 
     description: 'An innovative OS-style portfolio interface with window management, dock navigation, and glassmorphism design. Showcasing projects in a unique interactive environment.' 
   },
@@ -61,7 +61,7 @@ const projectList = [
     icon: '🎮',
     github: 'https://github.com/d-anjef/tic-tac-toe', 
     live: '', 
-    image: '', 
+    image: '/assets/projectpics/TictacToe.png', 
     description: 'Classic Tic Tac Toe game with smart AI opponent, score tracking, and smooth animations. Built using React hooks and game theory algorithms.' 
   },
   { 
@@ -71,7 +71,7 @@ const projectList = [
     icon: '⏰',
     github: 'https://github.com/d-anjef/digital-clock', 
     live: '', 
-    image: '', 
+    image: '/assets/projectpics/digital-clock.png', 
     description: 'A sleek real-time digital clock with customizable themes, timezone support, and alarm functionality. Pure JavaScript with modern CSS animations.' 
   },
   { 
@@ -81,8 +81,18 @@ const projectList = [
     icon: '✓',
     github: 'https://github.com/d-anjef/To-do-List', 
     live: '', 
-    image: '', 
+    image: '/assets/projectpics/ToDoList.png', 
     description: 'Minimalist task management application with drag-and-drop functionality, local storage persistence, and priority tagging system built with React.' 
+  },
+  { 
+    title: 'Cafe POS System ', 
+    tags: ['React', 'Productivity'], 
+    color: '#ffdd47', 
+    icon: '#',
+    github: '', 
+    live: '', 
+    image: '', 
+    description: 'currently building Cafe POS system for real time ' 
   }
 ];
 

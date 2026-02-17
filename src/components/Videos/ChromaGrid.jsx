@@ -20,59 +20,77 @@ export const ChromaGrid = ({
 
   const demo = [
     {
-      image: 'https://i.pravatar.cc/300?img=8',
-      title: 'Alex Rivera',
-      subtitle: 'Full Stack Developer',
-      handle: '@alexrivera',
-      borderColor: '#4F46E5',
-      gradient: 'linear-gradient(145deg, #4F46E5, #000)',
-      url: 'https://github.com/'
-    },
-    {
-      image: 'https://i.pravatar.cc/300?img=11',
-      title: 'Jordan Chen',
-      subtitle: 'DevOps Engineer',
-      handle: '@jordanchen',
-      borderColor: '#10B981',
-      gradient: 'linear-gradient(210deg, #10B981, #000)',
-      url: 'https://linkedin.com/in/'
-    },
-    {
-      image: 'https://i.pravatar.cc/300?img=3',
-      title: 'Morgan Blake',
-      subtitle: 'UI/UX Designer',
-      handle: '@morganblake',
-      borderColor: '#F59E0B',
-      gradient: 'linear-gradient(165deg, #F59E0B, #000)',
-      url: 'https://dribbble.com/'
-    },
-    {
-      image: 'https://i.pravatar.cc/300?img=16',
-      title: 'Casey Park',
-      subtitle: 'Data Scientist',
-      handle: '@caseypark',
-      borderColor: '#EF4444',
-      gradient: 'linear-gradient(195deg, #EF4444, #000)',
-      url: 'https://kaggle.com/'
-    },
-    {
-      image: 'https://i.pravatar.cc/300?img=25',
-      title: 'Sam Kim',
-      subtitle: 'Mobile Developer',
-      handle: '@thesamkim',
-      borderColor: '#8B5CF6',
-      gradient: 'linear-gradient(225deg, #8B5CF6, #000)',
-      url: 'https://github.com/'
-    },
-    {
-      image: 'https://i.pravatar.cc/300?img=60',
-      title: 'Tyler Rodriguez',
-      subtitle: 'Cloud Architect',
-      handle: '@tylerrod',
-      borderColor: '#06B6D4',
-      gradient: 'linear-gradient(135deg, #06B6D4, #000)',
-      url: 'https://aws.amazon.com/'
-    }
+    title: "Masthya Narayan Recreation Center",
+    subtitle: "Ad Project | 4K UHD",
+    handle: "0:46 Sec",
+    image: "/assets/photos/MNRC.png",
+    url: "https://www.facebook.com/share/v/1AhTYNQswD/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "Nhega Jatra",
+    subtitle: "Personal Project | 1080 HD",
+    handle: "1:02 Min",
+    image: "/assets/photos/JTR.png",
+    url: "https://www.facebook.com/share/v/1K1qAMQyLY/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "SwastiShree Gurukul",
+    subtitle: "Commercial | 1080 HD",
+    handle: "0:34 Sec",
+    image: "/assets/photos/SS.png",
+    url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7254529750226504961",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "Machchhegaun Mela",
+    subtitle: "Personal | 1080 HD",
+    handle: "0:30 Sec",
+    image: "/assets/photos/mela.png",
+    url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7259313392286960914",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "Anil Gurung's Project",
+    subtitle: "Personal | 1080 HD",
+    handle: "0:45 Sec",
+    image: "/assets/photos/AG.png",
+    url: "https://www.instagram.com/reel/C1wr59Ht2Yh/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "City Care Clinic With Manual Therapy",
+    subtitle: "Dental promotional Video",
+    handle: "0:43 Sec",
+    image: "/assets/photos/dental.png",
+    url: "https://www.facebook.com/share/v/18KYUNaRCe/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "City Care Clinic With Manual Therapy",
+    subtitle: "Dr. Sani Sipai",
+    handle: "0:33 Sec",
+    image: "/assets/photos/sani.png",
+    url: "https://www.facebook.com/share/v/17hKFMTdY9/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  },
+  {
+    title: "City Care Clinic With Manual Therapy",
+    subtitle: "Dr. Niranjan Shah's Interview",
+    handle: "0:56 Sec",
+    image: "/assets/photos/niranjan.png",
+    url: "https://www.facebook.com/share/v/17oaBsyWos/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  }
   ];
   const data = items?.length ? items : demo;
 
