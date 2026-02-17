@@ -1,7 +1,7 @@
-/* Container for the 3D Lanyard */
+/* Container for the 3D Lanyard - Mobile First */
 .lanyard-container {
   width: 100%;
-  height: 400px; /* Fixed height for the 3D view on mobile */
+  height: 250px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -11,7 +11,73 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* Updated Desktop Layout */
+/* Ensure the about text card doesn't conflict with Lanyard names */
+.profile-card-text {
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  padding: 1rem;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  line-height: 1.6;
+}
+
+/* Small Mobile - Extra Small Phones (320px - 374px) */
+@media (max-width: 374px) {
+  .lanyard-container {
+    height: 200px;
+  }
+
+  .profile-card-text {
+    padding: 0.75rem;
+  }
+}
+
+/* Standard Mobile (375px - 480px) */
+@media (min-width: 375px) and (max-width: 480px) {
+  .lanyard-container {
+    height: 250px;
+  }
+
+  .profile-card-text {
+    padding: 1rem;
+  }
+}
+
+/* Large Mobile / Small Tablet (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .lanyard-container {
+    height: 300px;
+  }
+
+  .profile-card-text {
+    padding: 1.25rem;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .content-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .lanyard-container {
+    height: 320px;
+  }
+
+  .about-section {
+    flex: 1;
+  }
+
+  .profile-card-text {
+    padding: 1.5rem;
+  }
+}
+
+/* Desktop (1024px and up) */
 @media (min-width: 1024px) {
   .content-layout {
     display: flex;
@@ -23,27 +89,34 @@
 
   .lanyard-container {
     flex: 1;
-    height: 100%; /* Take full height of the window on desktop */
+    height: 100%;
     min-height: 500px;
   }
 
   .about-section {
     flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .profile-card-text {
+    padding: 1.5rem;
   }
 }
 
-/* Ensure the about text card doesn't conflict with Lanyard names */
-.profile-card-text {
-  background-color: #2d2d2d;
-  border-radius: 12px;
-  padding: 1.5rem;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
+/* Large Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .content-layout {
+    gap: 3rem;
+    padding: 2.5rem;
+  }
 
-/* Small Mobile Adjustments */
-@media (max-width: 480px) {
   .lanyard-container {
-    height: 300px; /* Shorter canvas for small phones */
+    min-height: 550px;
+  }
+
+  .profile-card-text {
+    padding: 2rem;
   }
 }
