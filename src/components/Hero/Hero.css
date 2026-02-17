@@ -1,0 +1,641 @@
+/* Hero.css */
+
+/* Import Google Fonts - Instagram Style */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Poppins:wght@500;600;700&display=swap');
+
+:root {
+  --transition-speed: 1s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000000;
+  z-index: 1; /* Base layer */
+}
+
+/* Three.js Canvas Background */
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+/* Main Content */
+.hero-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10; /* Above canvas, below dock */
+}
+
+/* Sides */
+.side {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  cursor: pointer;
+  transition: all var(--transition-speed) cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.developer-side {
+  left: 0;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(40, 40, 40, 0.9) 100%);
+}
+
+.designer-side {
+  right: 0;
+  background: linear-gradient(135deg, rgba(245, 245, 245, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+}
+
+/* Expanded States */
+.view-developer .developer-side {
+  width: 100%;
+}
+
+.view-developer .designer-side {
+  width: 0%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.view-designer .designer-side {
+  width: 100%;
+  left: 0;
+}
+
+.view-designer .developer-side {
+  width: 0%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Main Titles - INSTAGRAM STYLE */
+.main-title {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.8rem, 8.55vw, 9.5rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: capitalize;
+  transition: all var(--transition-speed) ease;
+  z-index: 25;
+  line-height: 0.9;
+  font-style: italic;
+}
+
+.developer-title {
+  top: 10%;
+  left: 5%;
+  color: #ffffff;
+  padding-top: 1px;
+  
+}
+
+.view-developer .developer-title {
+  left: 8%;
+  top: 8%;
+  color: #ffffff;
+}
+
+.designer-title {
+  top: 10%;
+  right: 5%;
+  color: #000000;
+  padding-top: px;
+}
+
+.view-designer .designer-title {
+  right: 8%;
+  top: 8%;
+  color: #000000;
+}
+
+/* Subtitles - INSTAGRAM STYLE */
+.subtitle-list {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  opacity: 1;
+  transition: all var(--transition-speed) ease;
+  z-index: 25;
+  visibility: visible;
+}
+
+.developer-subtitles {
+  top: 22%;
+  left: 5%;
+  margin-top: 20px;
+}
+
+.designer-subtitles {
+  top: 22%;
+  right: 5%;
+  margin-top: 20px;
+}
+
+.view-developer .developer-subtitles {
+  left: 8%;
+}
+
+.view-designer .designer-subtitles {
+  right: 8%;
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: clamp(0.855rem, 1.71vw, 1.14rem);
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.85;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+.developer-subtitles .subtitle {
+  color: #ffffff;
+  text-align: left;
+}
+
+.designer-subtitles .subtitle {
+  color: #000000;
+  text-align: right;
+}
+
+/* Portrait Wrapper - UPDATED FOR FULL VISIBILITY & CENTERING */
+.portrait-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Changed width to allow full image visibility */
+  width: 100%;
+  max-width: 1000px; 
+  height: 75vh;
+  z-index: 10;
+  transition: all var(--transition-speed) cubic-bezier(0.76, 0, 0.24, 1);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.view-developer .portrait-wrapper {
+  left: 55%;
+}
+
+.view-designer .portrait-wrapper {
+  left: 45%;
+}
+
+/* Split Portrait Container */
+.portrait-split-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* UPDATED: Use 'contain' to show full image and 'bottom center' for positioning */
+.portrait-half-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.developer-img {
+  filter: grayscale(1) contrast(1.1);
+  clip-path: inset(0 50% 0 0);
+}
+
+.designer-img {
+  filter: saturate(1.2);
+  clip-path: inset(0 0 0 50%);
+}
+
+/* Full Portrait */
+.portrait-full-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* UPDATED: Ensure full view is also contained and centered */
+.portrait-full-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+/* Projects Buttons - REPOSITIONED BELOW ICONS */
+.projects-btn {
+  position: absolute;
+  padding: 14px 45px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.045rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid #000;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 30;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Split view buttons - positioned below icons */
+.developer-projects-split {
+  top: 75%;
+  left: 10%;
+  color: #000000;
+  background: rgba(255, 255, 255, 1);
+  border-color: #000000;
+  margin-top: 10px;
+}
+
+.developer-projects-split:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  margin-top: 10%;
+}
+
+.designer-projects-split {
+  top: 75%;
+  right: 10%;
+  color: #000000;
+  background: rgba(255, 255, 255, 1);
+  border-color: #000000;
+}
+
+.designer-projects-split:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Expanded view buttons */
+.developer-projects {
+  top: 75%;
+  left: 15%;
+  color: #ffffff;
+  border-color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.developer-projects:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #000000;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+}
+
+.designer-projects {
+  top: 75%;
+  right: 15%;
+  color: #000000;
+  border-color: #000000;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.designer-projects:hover {
+  background: rgba(0, 0, 0, 0.95);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Icons - STYLED LIKE REFERENCE */
+.icon-item {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 15px;
+  padding: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 15;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.icon-item:hover {
+  transform: translateY(-10px) scale(1.2) rotate(6deg) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.icon-item img,
+.icon-item svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Icon Containers */
+.icons-developer-split, .icons-designer-split, 
+.icons-developer-expanded, .icons-designer-expanded {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.icons-developer-split .icon-item, 
+.icons-designer-split .icon-item,
+.icons-developer-expanded .icon-item,
+.icons-designer-expanded .icon-item {
+  pointer-events: all;
+}
+
+/* Dividing Line - REMOVED */
+.dividing-line {
+  display: none;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.3); 
+    opacity: 0.6; 
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .portrait-wrapper { 
+    width: 100%;
+    max-width: 800px; 
+    height: 70vh;
+  }
+  .main-title { font-size: clamp(3rem, 7vw, 6rem); }
+  .icon-item { width: 55px; height: 55px; }
+}
+
+@media (max-width: 768px) {
+  /* VERTICAL STACKING: Developer TOP, Designer BOTTOM */
+  .side { 
+    width: 100% !important; 
+    height: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+  
+  .developer-side { 
+    top: 0 !important;
+  }
+  
+  .designer-side { 
+    top: 50% !important;
+    bottom: 0 !important;
+  }
+  
+  /* Expanded states */
+  .view-developer .developer-side { 
+    height: 100% !important; 
+  }
+  
+  .view-developer .designer-side {
+    height: 0% !important;
+    opacity: 0;
+  }
+  
+  .view-designer .designer-side { 
+    height: 100% !important; 
+    top: 0 !important;
+  }
+  
+  .view-designer .developer-side {
+    height: 0% !important;
+    opacity: 0;
+  }
+  
+  /* PORTRAIT - Sized and positioned to not block text */
+  .portrait-wrapper { 
+    width: 75% !important;
+    max-width: 360px !important;
+    height: 38vh !important; /* Further reduced */
+    bottom: 12% !important; /* Much lower - was 8% */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .view-developer .portrait-wrapper,
+  .view-designer .portrait-wrapper {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  /* TITLES - Centered at top of each section */
+  .developer-title {
+    top: 15% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 2.2rem !important;
+  }
+  
+  .designer-title {
+    top: 1% !important; /* Just below the 50% dividing line */
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 2.2rem !important;
+  }
+  
+  .view-developer .developer-title {
+    top: 8% !important;
+    left: 50% !important;
+  }
+  
+  .view-designer .designer-title {
+    top: 8% !important;
+    left: 50% !important;
+  }
+  
+  /* SUBTITLES - Centered below titles */
+  .developer-subtitles {
+    top: 20% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  
+  .developer-subtitles .subtitle {
+    text-align: center !important;
+  }
+  
+  .designer-subtitles {
+    top: 4% !important; /* Right below title */
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  
+  .designer-subtitles .subtitle {
+    text-align: center !important;
+  }
+  
+  .view-developer .developer-subtitles {
+    top: 15% !important;
+  }
+  
+  .view-designer .designer-subtitles {
+    top: 15% !important;
+  }
+  
+  /* PROJECTS BUTTONS - Centered */
+  .developer-projects-split {
+    top: 40% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+  
+  .designer-projects-split {
+    top: 20% !important; /* Below subtitles, above portrait */
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+  
+  .developer-projects {
+    top: 25% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+  
+  .designer-projects {
+    top: 25% !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+  
+  .projects-btn { 
+    padding: 9px 28px; 
+    font-size: 0.9rem;
+  }
+  
+  /* HIDE ICONS in split view to prevent overlap */
+  .view-split .icons-developer-split,
+  .view-split .icons-designer-split {
+    display: none !important;
+  }
+  
+  /* Show icons only in expanded views */
+  .icon-item { 
+    width: 42px !important; 
+    height: 42px !important; 
+  }
+  
+  /* Dividing line - horizontal */
+  .dividing-line {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 20%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.3) 80%,
+      transparent 100%
+    );
+    z-index: 5;
+  }
+  
+  .view-developer .dividing-line,
+  .view-designer .dividing-line {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .portrait-wrapper {
+    width: 90% !important;
+    max-width: 350px !important;
+    height: 45vh !important;
+    bottom: 11% !important;
+  }
+  
+  .main-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .icon-item {
+    width: 38px !important;
+    height: 38px !important;
+  }
+  
+  .projects-btn {
+    padding: 7px 22px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Float Animation for Icons */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.developer-icon-1 { animation: float 3s ease-in-out infinite; }
+.developer-icon-2 { animation: float 3.5s ease-in-out infinite; }
+.developer-icon-3 { animation: float 4s ease-in-out infinite; }
+.designer-icon-1 { animation: float 3.2s ease-in-out infinite; }
+.designer-icon-2 { animation: float 3.7s ease-in-out infinite; }
+.designer-icon-3 { animation: float 4.2s ease-in-out infinite; }

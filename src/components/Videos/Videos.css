@@ -1,35 +1,43 @@
+/* Videos.css - Senior Developer Refactor */
+
+/* 1. Modal Overlay */
 .videos-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85); /* Slightly darker for focus */
+  backdrop-filter: blur(12px); /* Matches your original aesthetic */
+  z-index: 2000;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
+/* 2. Modal Window Container */
 .videos-modal-window {
-  background: #111;
-  width: 80vw;
+  background: #0d0d0d; /* Deep dark background to contrast Chroma Grid */
+  width: 85vw;
   height: 80vh;
-  border-radius: 18px;
-  padding: 24px;
-  overflow: hidden;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
+  border: 1px solid #333;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
 }
 
+/* 3. Header Section */
 .videos-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .videos-title {
   color: #0ff;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
@@ -41,356 +49,66 @@
   display: flex;
   gap: 10px;
 }
+
 .window-btn {
   width: 14px;
   height: 14px;
   border-radius: 50%;
   border: none;
-  cursor: default;
+  cursor: pointer;
 }
-.red {
-  background: #ff5f57;
-}
-.yellow {
-  background: #ffbd2e;
-}
-.green {
-  background: #28c840;
-}
+
+.red { background: #ff5f57; }
+.yellow { background: #ffbd2e; }
+.green { background: #28c840; }
 
 .videos-description {
   color: #ccc;
-  margin: 10px 0 20px;
-  font-size: 1.1rem;
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
 }
 
-.video-carousel-3cards {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
+/* 4. Scrollable Grid Area */
+/* This replaces the old .video-carousel-3cards logic */
+.grid-scroll-area {
   flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px; /* Space for scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
 }
 
-.nav-button {
-  background: #222;
-  border: none;
-  color: #0ff;
-  font-size: 40px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background 0.3s;
-  flex-shrink: 0;
+/* Chrome/Safari Scrollbar Styles */
+.grid-scroll-area::-webkit-scrollbar {
+  width: 6px;
 }
 
-.nav-button:hover {
-  background: #0cc;
-}
-
-.nav-button:focus {
-  outline: 2px solid #0ff;
-}
-
-.cards-wrapper {
-  display: flex;
-  gap: 24px;
-  width: 80%;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.video-card-big {
-  background: #1a1a1a;
-  border-radius: 18px;
-  width: 27%; /* About 3 cards in 80% width with gaps */
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 0 20px #0ff;
-  user-select: none;
-  padding: 16px;
-  color: #fff;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.video-card-big:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px #0ff;
-}
-
-.video-thumbnail-wrapper-big {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-  height: 180px;
-}
-
-.video-thumbnail-wrapper-big:hover {
-  transform: scale(1.05);
-}
-
-.video-thumbnail-big {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 14px;
-  user-select: none;
-}
-
-.play-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-
-.video-thumbnail-wrapper-big:hover .play-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.play-btn i {
-  color: #0ff;
-  font-size: 36px;
-}
-
-.project-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #0ff;
-  color: #000;
-  padding: 5px 12px;
-  font-size: 0.9rem;
-  border-radius: 14px;
-  font-weight: 700;
-  user-select: none;
-}
-
-.card-content-big {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex-grow: 1;
-}
-
-.video-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #0ff;
-  margin: 0;
-}
-
-.video-description {
-  font-size: 1rem;
-  color: #ccc;
-  min-height: 60px;
-  margin: 0;
-}
-
-.tech-used {
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-.tech-item {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  color: #aaa;
-}
-
-.video-meta {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  color: #999;
-  font-size: 0.85rem;
-}
-
-.watch-button {
-  background: #0ff;
-  color: #000;
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
-  font-weight: 700;
-  margin-top: auto;
-  cursor: pointer;
-  transition: background 0.3s;
-  align-self: flex-start;
-  font-size: 1rem;
-}
-
-.watch-button:hover {
-  background: #0cc;
-}
-/* Mobile responsiveness */
-@media (max-width: 1024px) {
-  .videos-modal-window {
-  width: 70vw;
-  height: 80vh;
-  padding: 30px;
-  overflow: hidden;
-}
-
-.videos-title {
-  font-size: 1.8rem;
-}
-
-.videos-description {
-  font-size: 1.1rem;
-  margin: 10px 0 20px;
-}
-
-.video-carousel-3cards {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-}
-
-.cards-wrapper {
-  display: flex;
-  gap: 25px;
-  width: 85%;
-  overflow: hidden;
-}
-
-.video-card-big {
-  width: 28%;
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  padding: 18px;
-  transition: transform 0.3s;
-}
-
-.video-card-big:hover {
-  transform: scale(1.03);
-}
-
-.video-thumbnail-wrapper-big {
-  height: 180px;
-  background-size: cover;
-  background-position: center;
+.grid-scroll-area::-webkit-scrollbar-thumb {
+  background: #333;
   border-radius: 10px;
 }
 
-.video-title {
-  font-size: 1.2rem;
-  margin: 10px 0 5px;
+.grid-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.video-description {
-  font-size: 1rem;
-  min-height: 60px;
-}
+/* 5. Responsive Media Queries */
 
-.tech-used,
-.video-meta {
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-.watch-button {
-  padding: 10px;
-  font-size: 1rem;
-}
-
-.nav-button {
-  font-size: 32px;
-  width: 45px;
-  height: 45px;
-}
-
-/* Medium Devices (Tablet) */
+/* Tablet Devices */
 @media (max-width: 1024px) {
-  .videos-modal-window {
-    width: 90vw;
-    height: 85vh;
-    padding: 20px;
-  }
-
-  .videos-title {
-    font-size: 1.5rem;
-  }
-
-  .videos-description {
-    font-size: 1rem;
-    margin: 8px 0 15px;
-  }
-
-  .video-carousel-3cards {
-    gap: 20px;
-  }
-
-  .nav-button {
-    font-size: 28px;
-    width: 40px;
-    height: 40px;
-  }
-
-  .cards-wrapper {
-    gap: 20px;
-    width: 90%;
-  }
-
-  .video-card-big {
-    width: 30%;
-    padding: 16px;
-  }
-
-  .video-thumbnail-wrapper-big {
-    height: 160px;
-  }
-
-  .video-title {
-    font-size: 1.1rem;
-  }
-
-  .video-description {
-    font-size: 0.95rem;
-  }
-
-  .tech-used,
-  .video-meta {
-    font-size: 0.85rem;
-  }
-
-  .watch-button {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-}
-
-
-}
-  
-/* Small Devices (Mobile - Portrait & Small Tablets) */
-@media (max-width: 768px) {
   .videos-modal-window {
     width: 95vw;
-    height: 90vh;
-    padding: 15px;
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .videos-modal-window {
+    height: 95vh;
+    padding: 1rem;
     border-radius: 15px;
-    overflow-y: auto;
   }
 
   .videos-title {
@@ -398,140 +116,17 @@
   }
 
   .videos-description {
-    font-size: 0.95rem;
-    margin: 6px 0 12px;
-  }
-
-  .window-btn {
-    width: 12px;
-    height: 12px;
-  }
-
-  .video-carousel-3cards {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .nav-button {
-    display: none;
-  }
-
-  .cards-wrapper {
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-    overflow-y: auto;
-    padding-right: 5px;
-  }
-
-  .cards-wrapper::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  .cards-wrapper::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border-radius: 4px;
-  }
-
-  .cards-wrapper::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .video-card-big {
-    width: 95%;
-    max-width: 350px;
-    align-self: center;
-    padding: 14px;
-  }
-
-  .video-thumbnail-wrapper-big {
-    height: 160px;
-  }
-
-  .video-title {
-    font-size: 1rem;
-  }
-
-  .video-description {
-    font-size: 0.85rem;
-  }
-
-  .project-badge {
-    font-size: 0.8rem;
-    padding: 4px 10px;
-  }
-
-  .play-btn i {
-    font-size: 28px;
-  }
-
-  .watch-button {
-    padding: 7px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 }
 
-/* Extra Small Devices (Phones < 480px) */
+/* Extra Small Devices */
 @media (max-width: 480px) {
   .videos-modal-window {
-    width: 95vw;
-    height: 85vh;
-    padding: 10px;
-    border-radius: 12px;
+    padding: 0.8rem;
   }
-
-  .videos-title {
-    font-size: 1rem;
-  }
-
-  .window-controls {
-    gap: 5px;
-  }
-
-  .window-btn {
-    width: 10px;
-    height: 10px;
-  }
-
-  .videos-description {
-    font-size: 0.85rem;
-    margin: 5px 0 10px;
-  }
-
-  .cards-wrapper {
-    gap: 15px;
-    padding-right: 3px;
-  }
-
-  .video-card-big {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-  }
-
-  .video-thumbnail-wrapper-big {
-    height: 140px;
-  }
-
-  .video-title {
-    font-size: 0.95rem;
-  }
-
-  .video-description {
-    font-size: 0.8rem;
-  }
-
-  .project-badge {
-    font-size: 0.75rem;
-    padding: 3px 8px;
-  }
-
-  .play-btn i {
-    font-size: 24px;
-  }
-
-  .watch-button {
-    padding: 6px;
-    font-size: 0.8rem;
+  
+  .videos-modal-header {
+    margin-bottom: 0.2rem;
   }
 }

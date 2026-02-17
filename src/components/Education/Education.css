@@ -1,0 +1,519 @@
+.education-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(12px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.education-window {
+  width: 80vw;
+  height: 80vh;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: popIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f1f1f;
+  padding: 10px 18px;
+  border-bottom: 1px solid #333;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.education-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 0 0 8px #a78bfa88;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.window-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.window-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px currentColor;
+}
+
+.window-btn:focus {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
+
+.yellow {
+  background-color: #ffbd2e;
+}
+
+.green {
+  background-color: #27c93f;
+}
+
+.red {
+  background-color: #ff5f56;
+}
+
+.education-description {
+  padding: 16px 24px;
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background-color: #252525;
+  border-bottom: 1px solid #333;
+}
+
+.education-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge */
+.education-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Education List */
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Education Card */
+.education-card {
+  background: linear-gradient(135deg, #2b2b2b 0%, #242424 100%);
+  border: 1px solid #3a3a4a;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  animation: slideInUp 0.6s ease-out both;
+  animation-delay: var(--delay);
+}
+
+.education-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.1), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.education-card:hover::before {
+  left: 100%;
+}
+
+.education-card:hover {
+  background: linear-gradient(135deg, #333344 0%, #2a2a38 100%);
+  border-color: #a78bfa;
+  box-shadow: 0 8px 24px rgba(167, 139, 250, 0.2);
+  transform: translateY(-4px);
+}
+
+.education-card.expanded {
+  background: linear-gradient(135deg, #2a254a 0%, #1a1a3a 100%);
+  border-color: #a78bfa;
+  box-shadow: 0 12px 32px rgba(167, 139, 250, 0.25);
+}
+
+.education-main {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.education-icon {
+  font-size: 2.4rem;
+  flex-shrink: 0;
+  animation: bounce 0.6s ease-out;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.education-info {
+  flex: 1;
+}
+
+.degree-name {
+  margin: 0 0 4px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.institution-name {
+  margin: 0 0 2px 0;
+  font-size: 0.95rem;
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.field-study {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: #999;
+  font-style: italic;
+}
+
+.education-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.duration {
+  font-size: 0.85rem;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status.currently-studying {
+  background: rgba(167, 139, 250, 0.2);
+  color: #e9d5ff;
+  border: 1px solid #c4b5fd;
+}
+
+.status.completed {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid #86efac;
+}
+
+.education-description-text {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: #bbb;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.expand-indicator {
+  font-size: 0.75rem;
+  color: #a78bfa;
+  font-weight: 600;
+  text-align: right;
+  padding-top: 8px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.education-card:hover .expand-indicator {
+  transform: translateX(4px);
+}
+
+/* Education Details */
+.education-details {
+  animation: slideDown 0.4s ease-out;
+  border-top: 1px solid rgba(167, 139, 250, 0.2);
+  padding-top: 16px;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+  }
+}
+
+.details-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.details-box h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #a78bfa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.details-box ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+.details-box li {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 6px;
+  line-height: 1.5;
+  position: relative;
+}
+
+.details-box li::before {
+  content: '✓';
+  position: absolute;
+  left: -12px;
+  color: #a78bfa;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Course Tags */
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.course-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 16px;
+  font-size: 0.75rem;
+  color: #d8b4fe;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.course-tag:hover {
+  background: rgba(167, 139, 250, 0.25);
+  border-color: #a78bfa;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .education-window {
+    width: 90vw;
+    height: auto;
+    max-height: 90vh;
+  }
+
+  .education-content {
+    padding: 18px;
+  }
+
+  .education-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-window {
+    width: 95vw;
+    height: 95vh;
+  }
+
+  .education-content {
+    padding: 16px;
+  }
+
+  .education-title {
+    font-size: 1.1rem;
+  }
+
+  .education-card {
+    padding: 14px;
+  }
+
+  .education-main {
+    gap: 12px;
+  }
+
+  .education-icon {
+    font-size: 1.8rem;
+  }
+
+  .degree-name {
+    font-size: 1rem;
+  }
+
+  .institution-name {
+    font-size: 0.9rem;
+  }
+
+  .education-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .details-box h4 {
+    font-size: 0.8rem;
+  }
+
+  .details-box li {
+    font-size: 0.8rem;
+  }
+
+  .course-tag {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-window {
+    width: 95vw;
+    height: 95vh;
+    border-radius: 8px;
+  }
+
+  .education-header {
+    padding: 8px 12px;
+  }
+
+  .education-title {
+    font-size: 1rem;
+  }
+
+  .education-description {
+    padding: 10px 14px;
+    font-size: 0.8rem;
+  }
+
+  .education-content {
+    padding: 12px;
+  }
+
+  .education-card {
+    padding: 12px;
+  }
+
+  .education-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .education-icon {
+    font-size: 1.6rem;
+  }
+
+  .degree-name {
+    font-size: 0.95rem;
+  }
+
+  .institution-name {
+    font-size: 0.85rem;
+  }
+
+  .field-study {
+    font-size: 0.75rem;
+  }
+
+  .education-description-text {
+    font-size: 0.8rem;
+  }
+
+  .expand-indicator {
+    font-size: 0.7rem;
+  }
+
+  .course-tag {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+  }
+}

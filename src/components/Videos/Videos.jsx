@@ -1,97 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
+import ChromaGrid from "./ChromaGrid";
 import "./Videos.css";
-import { motion, AnimatePresence } from "framer-motion";
 
 const videoData = [
   {
     title: "Masthya Narayan Recreation Center",
-    description: "A ad project to promote the facilities from this center.",
-    badge: "Ad",
-    tech: "Adobe Premiere Pro",
-    resolution: "4K UHD",
-    duration: "0:46 Sec",
-    platform: "Facebook",
-    thumbnail: "/assets/photos/MNRC.png",
-    link: "https://www.facebook.com/share/v/1AhTYNQswD/",
+    subtitle: "Ad Project | 4K UHD",
+    handle: "0:46 Sec",
+    image: "/assets/photos/MNRC.png",
+    url: "https://www.facebook.com/share/v/1AhTYNQswD/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
   },
   {
-    title: "Nhega Jatra (saat gaule jatra)",
-    description:
-      "Personal project which is captured and edited by myself. The video is about jatra celebrated from 7 village.",
-    badge: "Personal",
-    tech: "Adobe Premiere Pro",
-    resolution: "1080 HD",
-    duration: "1:02 Min",
-    platform: "Facebook",
-    thumbnail: "/assets/photos/JTR.png",
-    link: "https://www.facebook.com/share/v/1K1qAMQyLY/",
+    title: "Nhega Jatra",
+    subtitle: "Personal Project | 1080 HD",
+    handle: "1:02 Min",
+    image: "/assets/photos/JTR.png",
+    url: "https://www.facebook.com/share/v/1K1qAMQyLY/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
   },
   {
-    title: "SwastiShree Gurukul at Matshya Futsal",
-    description:
-      "This video shows about the training in futsal with Mr.Anil Gurung from SwastiShree Gurukul School",
-    badge: "Commercial",
-    tech: "Adobe Premiere Pro",
-    resolution: "1080 HD",
-    duration: "0:34 Sec",
-    platform: "Tiktok",
-    thumbnail: "/assets/photos/SS.png",
-    link: "https://www.tiktok.com/@matshyanarayanrecreation/video/7254529750226504961?is_from_webapp=1&sender_device=pc&web_id=7505028872246298133",
+    title: "SwastiShree Gurukul",
+    subtitle: "Commercial | 1080 HD",
+    handle: "0:34 Sec",
+    image: "/assets/photos/SS.png",
+    url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7254529750226504961",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
   },
   {
     title: "Machchhegaun Mela",
-    description: "Personal project which is captured and edited by myself.",
-    badge: "Personal",
-    tech: "Adobe Premiere Pro",
-    resolution: "1080 HD",
-    duration: "0:30 Sec",
-    platform: "Tiktok",
-    thumbnail: "/assets/photos/mela.png",
-    link: "https://www.tiktok.com/@matshyanarayanrecreation/video/7259313392286960914?is_from_webapp=1&sender_device=pc&web_id=7505028872246298133",
+    subtitle: "Personal | 1080 HD",
+    handle: "0:30 Sec",
+    image: "/assets/photos/mela.png",
+    url: "https://www.tiktok.com/@matshyanarayanrecreation/video/7259313392286960914",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
   },
   {
     title: "Anil Gurung’s Project",
-    description:
-      "Captured and edited by me. This project is used for Mr. Anil Gurung which shows short football video.",
-    badge: "Personal",
-    tech: "Adobe Premiere Pro",
-    resolution: "1080 HD",
-    duration: "0:45 Sec",
-    platform: "Instagram",
-    thumbnail: "/assets/photos/AG.png",
-    link: "https://www.instagram.com/reel/C1wr59Ht2Yh/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-  },
+    subtitle: "Personal | 1080 HD",
+    handle: "0:45 Sec",
+    image: "/assets/photos/AG.png",
+    url: "https://www.instagram.com/reel/C1wr59Ht2Yh/",
+    borderColor: "#0ff",
+    gradient: "linear-gradient(145deg, #00ffff22, #000)"
+  }
 ];
 
-// Utility to get 3 items wrapping around the array
-const getVisibleVideos = (data, startIndex, count = 3) => {
-  const len = data.length;
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    result.push(data[(startIndex + i) % len]);
-  }
-  return result;
-};
-
 const Videos = ({ onClose }) => {
-  const [startIndex, setStartIndex] = useState(0);
-  const videoCount = videoData.length;
-
-  const prev = () => {
-    setStartIndex((prev) => (prev - 1 + videoCount) % videoCount);
-  };
-
-  const next = () => {
-    setStartIndex((prev) => (prev + 1) % videoCount);
-  };
-
-  const visibleVideos = getVisibleVideos(videoData, startIndex, 3);
-
-  // Open video link helper
-  const openVideo = (link) => {
-    window.open(link, "_blank");
-  };
-
   return (
     <div className="videos-modal-overlay">
       <motion.div
@@ -99,93 +59,24 @@ const Videos = ({ onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3 }}
       >
         <div className="videos-modal-header">
           <span className="videos-title glitch-text">🎬 Video Projects</span>
           <div className="window-controls">
             <button className="window-btn yellow" />
             <button className="window-btn green" />
-            <button className="window-btn red" onClick={onClose} />
+             <button className="window-btn red" onClick={onClose} />
           </div>
         </div>
 
-        <p className="videos-description">Explore my creative video work below.</p>
+        <p className="videos-description">Click a card to watch the video.</p>
 
-        <div className="video-carousel-3cards">
-          <button className="nav-button" onClick={prev} aria-label="Previous Videos">
-            ‹
-          </button>
-
-          <div className="cards-wrapper">
-            {visibleVideos.map((video, idx) => (
-              <motion.div
-                key={`${video.title}-${startIndex + idx}`}
-                className="video-card-big"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div
-                  className="video-thumbnail-wrapper-big"
-                  onClick={() => openVideo(video.link)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") openVideo(video.link);
-                  }}
-                >
-                  <img
-                    src={video.thumbnail}
-                    alt={video.title}
-                    className="video-thumbnail-big"
-                  />
-                  <div className="play-overlay">
-                    <div className="play-btn">
-                      <i className="fas fa-play" />
-                    </div>
-                  </div>
-                  <div className="project-badge">{video.badge}</div>
-                </div>
-                <div className="card-content-big">
-                  <h3 className="video-title">{video.title}</h3>
-                  <p className="video-description">{video.description}</p>
-                  <div className="tech-used">
-                    <h4>Tech Used:</h4>
-                    <div className="tech-item">
-                      <i className="fas fa-film"></i> {video.tech}
-                    </div>
-                  </div>
-                  <div className="video-meta">
-                    <span>
-                      <i className="fas fa-video" /> {video.resolution}
-                    </span>
-                    <span>
-                      <i className="fas fa-clock" /> {video.duration}
-                    </span>
-                    <span>
-                      <i className={`fab fa-${video.platform.toLowerCase()}`} />{" "}
-                      {video.platform}
-                    </span>
-                  </div>
-                  <button
-                    className="watch-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openVideo(video.link);
-                    }}
-                  >
-                    <i className="fas fa-eye" /> Watch Video
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <button className="nav-button" onClick={next} aria-label="Next Videos">
-            ›
-          </button>
+        <div className="grid-scroll-area">
+          <ChromaGrid 
+            items={videoData} 
+            columns={3} 
+            radius={250} 
+          />
         </div>
       </motion.div>
     </div>

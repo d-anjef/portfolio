@@ -1,124 +1,95 @@
-.dock-container {
+/* Dock.css - Bottom Positioned Senior Refactor - FIXED Z-INDEX */
+
+.dock-container-bottom {
   position: fixed;
-  top: 2rem;
+  top: 1.5rem; /* Positioned at top */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;
-}
-
-.dock {
+  z-index: 50; /* REDUCED from 1000 to allow hero interactions */
   display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 20px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  justify-content: center;
+  width: auto;
+  pointer-events: none; /* Allow clicks to pass through container */
 }
 
-.app.light .dock {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+.dock-outer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 10px;
+  pointer-events: auto; /* Re-enable clicks on dock itself */
 }
 
-.app.dark .dock {
-  background-color: rgba(26, 26, 26, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.dock-panel {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 24px;
+  background-color: rgba(112, 112, 160, 0.85);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(221, 16, 16, 0.1);
+  box-shadow: 0 -10px 40px rgba(228, 5, 5, 0.5);
+  pointer-events: auto; /* Clickable */
 }
 
 .dock-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  margin: 0 0.25rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
-  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background-color: rgba(247, 0, 0, 0.089);
+  border: 1px solid rgba(63, 12, 12, 0.08);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+  pointer-events: auto; /* Clickable */
 }
 
 .dock-item:hover {
-  transform: translateY(-5px);
-}
-
-.dock-item.active::before {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-
-
-.app.light .dock-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.app.dark .dock-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(0, 255, 255, 0.3);
 }
 
 .dock-icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.25rem;
-  transition: all 0.3s ease;
-}
-
-.dock-item:hover .dock-icon {
-  transform: scale(1.2);
+  font-size: 1.6rem;
+  user-select: none;
 }
 
 .dock-label {
-  font-size: 0.7rem;
+  position: absolute;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-align: center;
-  opacity: 0.8;
-  transition: all 0.3s ease;
+  border: 1px solid #333;
+  pointer-events: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  z-index: 100; /* Above dock items but below modals */
 }
 
-.dock-item:hover .dock-label {
-  opacity: 1;
-}
-
+/* Responsive Mobile Layout */
 @media (max-width: 768px) {
-  .dock-container {
+  .dock-container-bottom {
+    top: auto;
     bottom: 1rem;
+    width: 95%;
+    z-index: 50; /* Keep same z-index on mobile */
   }
-  
-  .dock {
-    padding: 0.4rem;
-    margin-top: 50px;
-  }
-  
-  .dock-item {
-    min-width: 50px;
-    padding: 0.4rem;
-  }
-  
-  .dock-icon {
-    font-size: 1.3rem;
-  }
-  
-  .dock-label {
-    font-size: 0.6rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .dock {
+  .dock-panel {
+    gap: 0.5rem;
+    padding: 0.5rem;
+    max-width: 100%;
     overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: none; /* Firefox */
   }
-  
-  .dock::-webkit-scrollbar {
-    display: none;
+
+  .dock-panel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
   }
 }

@@ -1,23 +1,92 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import gsap from "gsap";
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNode,
+  FaPhp,
+  FaGitAlt,
+  FaGithub,
+  FaGitlab,
+  FaFigma,
+  FaWordpress,
+  FaCamera,
+  FaVideo,
+  FaFilm,
+  FaDatabase,
+  FaJava,
+  FaCodeBranch,
+  FaPython,
+} from "react-icons/fa";
 import "./SkillsModal.css";
 
-const skills = [
-  { title: "HTML5", description: "Markup language for structuring content.", emoji: "📄" },
-  { title: "CSS3", description: "Styling web pages with responsive designs.", emoji: "🎨" },
-  { title: "JavaScript", description: "Adding interactivity and logic to web pages.", emoji: "⚙️" },
-  { title: "React.js", description: "Modern UI framework for building SPAs.", emoji: "⚛️" },
-  { title: "Node.js", description: "Back-end runtime for JavaScript on servers.", emoji: "🌐" },
-  { title: "Express.js", description: "Lightweight Node.js web framework.", emoji: "🚂" },
-  { title: "MongoDB", description: "NoSQL database for flexible data models.", emoji: "🗃️" },
-  { title: "Framer Motion", description: "Animation library for React components.", emoji: "🎞️" },
-  { title: "Figma", description: "UI/UX design and prototyping tool.", emoji: "🖌️" },
-  { title: "Git & GitHub", description: "Version control and code collaboration.", emoji: "🐙" },
-  { title: "Photography", description: "Capturing visual stories creatively.", emoji: "📷" },
-  { title: "Video Editing", description: "Creating engaging motion visuals.", emoji: "🎬" },
-  
+// Your complete skills array organized by category
+const allSkills = [
+  // Frontend
+  { title: "HTML", icon: FaHtml5, category: "Frontend" },
+  { title: "CSS", icon: FaCss3Alt, category: "Frontend" },
+  { title: "Tailwind CSS", icon: FaCss3Alt, category: "Frontend" },
+  { title: "JavaScript", icon: FaJs, category: "Frontend" },
+  { title: "React.jsx", icon: FaReact, category: "Frontend" },
+  { title: "Framer Motion", icon: FaVideo, category: "Frontend" },
+
+  // Backend & Databases
+  { title: "Node.js", icon: FaNode, category: "Backend" },
+  { title: "Express.js", icon: FaNode, category: "Backend" },
+  { title: "MongoDB", icon: FaDatabase, category: "Backend" },
+  { title: "PHP", icon: FaPhp, category: "Backend" },
+  { title: "MySQL", icon: FaDatabase, category: "Backend" },
+  { title: "Java", icon: FaJava, category: "Backend" },
+
+  // Programming Languages
+  { title: "C", icon: FaCodeBranch, category: "Programming" },
+  { title: "C++", icon: FaCodeBranch, category: "Programming" },
+
+  // Version Control
+  { title: "Git", icon: FaGitAlt, category: "Tools" },
+  { title: "GitHub", icon: FaGithub, category: "Tools" },
+  { title: "GitLab", icon: FaGitlab, category: "Tools" },
+
+  // Design Tools
+  { title: "Figma", icon: FaFigma, category: "Design" },
+  { title: "Adobe XD", icon: FaFigma, category: "Design" },
+  { title: "WordPress", icon: FaWordpress, category: "Design" },
+
+  // Video & Photo
+  { title: "Premiere Pro", icon: FaFilm, category: "Media" },
+  { title: "After Effects", icon: FaFilm, category: "Media" },
+  { title: "Photography", icon: FaCamera, category: "Media" },
+  { title: "Videography", icon: FaVideo, category: "Media" },
 ];
 
 const SkillsModal = ({ onClose }) => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const cardsRef = useRef([]);
+
+  // Get unique categories
+  const categories = ["All", ...new Set(allSkills.map(skill => skill.category))];
+  
+  // Filter skills based on selected category
+  const filteredSkills = selectedCategory === "All" 
+    ? allSkills 
+    : allSkills.filter(skill => skill.category === selectedCategory);
+
+  // Hover effect for individual cards - only on hover
+  const handleCardHover = (index, isHovering) => {
+    const card = cardsRef.current[index];
+    if (!card) return;
+
+    gsap.to(card, {
+      y: isHovering ? -8 : 0,
+      scale: isHovering ? 1.05 : 1,
+      duration: 0.3,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  };
+
   return (
     <div className="skills-modal-overlay">
       <div className="skills-modal-container">
@@ -31,18 +100,49 @@ const SkillsModal = ({ onClose }) => {
         </div>
 
         <p className="skills-description">
-          Below is a showcase of my technical and creative skills. Each card represents a different skill with a fun, visual format inspired by Pokémon cards. Explore how I blend code, design, and creativity into everything I do.
+          Explore my diverse skill set spanning frontend development, backend technologies, programming languages, design tools, and creative media production.
         </p>
 
-        <div className="skills-card-grid">
-          {skills.map((skill, index) => (
-            <div key={index} className="skill-card">
-              <div className="skill-emoji">{skill.emoji}</div>
-              <h3>{skill.title}</h3>
-              <p>{skill.description}</p>
-            </div>
+        {/* Category Filter */}
+        <div className="skills-category-filter">
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={`category-btn ${selectedCategory === category ? "active" : ""}`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
           ))}
         </div>
+
+        {/* Skills Grid */}
+        <div className="skills-card-grid">
+          {filteredSkills.map((skill, index) => {
+            const IconComponent = skill.icon;
+            return (
+              <div
+                key={`${skill.title}-${index}`}
+                ref={(el) => (cardsRef.current[index] = el)}
+                className="skill-card"
+                onMouseEnter={() => handleCardHover(index, true)}
+                onMouseLeave={() => handleCardHover(index, false)}
+              >
+                <div className="skill-icon">
+                  <IconComponent />
+                </div>
+                <h3>{skill.title}</h3>
+                <span className="skill-category-tag">{skill.category}</span>
+              </div>
+            );
+          })}
+        </div>
+
+        {filteredSkills.length === 0 && (
+          <div className="no-skills-message">
+            No skills found in this category.
+          </div>
+        )}
       </div>
     </div>
   );

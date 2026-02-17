@@ -6,7 +6,7 @@ const SocialLinks = () => {
     { id: 'linkedin', icon: 'IN', label: 'LinkedIn', url: 'https://www.linkedin.com/in/anjef-dangol-916804369/' },
     { id: 'facebook', icon: 'FB', label: 'Facebook', url: 'https://www.facebook.com/anjef.dangol.1010' },
     { id: 'instagram', icon: 'IG', label: 'Instagram', url: 'https://www.instagram.com/_anjef/' },
-    { id: 'github', icon: 'GH', label: 'GitHub', url: 'https://github.com/anjef1010' }
+    { id: 'github', icon: 'GH', label: 'GitHub', url: 'https://github.com/d-anjef' }
   ];
 
   const handleSocialClick = (url) => {
