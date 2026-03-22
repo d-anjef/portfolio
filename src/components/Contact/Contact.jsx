@@ -169,7 +169,7 @@ const ContactWindow = ({ onClose }) => {
             </div>
 
             {/* Download Resume */}
-            <a href="/assets/CV.pdf" download className="download-resume">
+            <a href="/assets/AnjefCV.pdf" download className="download-resume">
               📄 Download Resume
             </a>
           </div>
