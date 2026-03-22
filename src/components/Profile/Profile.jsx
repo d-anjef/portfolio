@@ -67,7 +67,14 @@ const Profile = ({ isOpen, onClose }) => {
 
                 <div className="contact-hint">
                   {/* Subtle hint for interactivity */}
-                  <span className="hint-text">Explore : Try dragging the card!</span>
+                  <span className="hint-text">Explore : Try dragging the card!</span><br></br>
+                  <br></br>
+                  <div>
+                  {/* Download Resume */}
+            <a href="/assets/CV.pdf" download className="download-resume">
+              📄 Download Resume
+            </a>
+            </div>
                 </div>
               </div>
             </div>
